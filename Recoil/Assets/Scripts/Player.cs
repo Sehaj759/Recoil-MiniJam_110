@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     Vector2 mousePos = Vector2.zero;
 
+    [SerializeField] Transform firePoint;
+    [SerializeField] GameObject bulletPrefab;
     bool fire = false;
     float bulletForce = 50.0f;
 
@@ -41,8 +43,9 @@ public class Player : MonoBehaviour
         if (fire)
         {
             fire = false;
-
             rb.AddForce(bulletForce * (rb.position - mousePos));
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            Destroy(bullet, 2.0f);
         }
     }
 }
