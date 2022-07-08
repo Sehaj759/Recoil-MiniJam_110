@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 
     Vector2 mousePos = Vector2.zero;
 
+    bool fire = false;
+    float bulletForce = 50.0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();    
@@ -21,5 +24,25 @@ public class Player : MonoBehaviour
         Vector2 lookDir = mousePos - rb.position;
 
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            fire = true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Fire();
+    }
+
+    void Fire()
+    {
+        if (fire)
+        {
+            fire = false;
+
+            rb.AddForce(bulletForce * (rb.position - mousePos));
+        }
     }
 }
