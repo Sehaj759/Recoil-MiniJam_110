@@ -17,10 +17,20 @@ public class Player : MonoBehaviour
     float maxVelocityMagnitude = 9.0f;
     float maxVelocityMagnitudeSq;
 
+    int maxBullets = 75;
+    int curBullets;
+
+    int maxHitPoints = 4;
+    int curHitPoints;
+
     void Start()
     {
-        maxVelocityMagnitudeSq = maxVelocityMagnitude * maxVelocityMagnitude;
         rb = GetComponent<Rigidbody2D>();    
+        
+        curBullets = maxBullets;
+        curHitPoints = maxHitPoints;
+
+        maxVelocityMagnitudeSq = maxVelocityMagnitude * maxVelocityMagnitude;
     }
 
     void Update()
@@ -46,15 +56,20 @@ public class Player : MonoBehaviour
         if (fire)
         {
             fire = false;
-            rb.AddForce(bulletForce * (-lookDir));
-            if (rb.velocity.sqrMagnitude >= maxVelocityMagnitudeSq)
+            if (curBullets > 0)
             {
-                rb.velocity = maxVelocityMagnitude * rb.velocity.normalized;
+                curBullets--;
+                rb.AddForce(bulletForce * (-lookDir));
+                if (rb.velocity.sqrMagnitude >= maxVelocityMagnitudeSq)
+                {
+                    rb.velocity = maxVelocityMagnitude * rb.velocity.normalized;
+                }
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+                Rigidbody2D bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
+                bulletRigidBody.AddForce(bulletForce * lookDir);
+                Destroy(bullet, 2.0f);
             }
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
-            Rigidbody2D bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
-            bulletRigidBody.AddForce(bulletForce * lookDir);
-            Destroy(bullet, 2.0f);
+            Debug.Log("Cur Bullets: " + curBullets.ToString());
         }
     }
 }
