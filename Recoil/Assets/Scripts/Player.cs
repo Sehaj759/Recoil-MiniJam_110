@@ -14,9 +14,12 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     bool fire = false;
     float bulletForce = 50.0f;
+    float maxVelocityMagnitude = 9.0f;
+    float maxVelocityMagnitudeSq;
 
     void Start()
     {
+        maxVelocityMagnitudeSq = maxVelocityMagnitude * maxVelocityMagnitude;
         rb = GetComponent<Rigidbody2D>();    
     }
 
@@ -44,6 +47,10 @@ public class Player : MonoBehaviour
         {
             fire = false;
             rb.AddForce(bulletForce * (-lookDir));
+            if (rb.velocity.sqrMagnitude >= maxVelocityMagnitudeSq)
+            {
+                rb.velocity = maxVelocityMagnitude * rb.velocity.normalized;
+            }
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
             Rigidbody2D bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
             bulletRigidBody.AddForce(bulletForce * lookDir);
