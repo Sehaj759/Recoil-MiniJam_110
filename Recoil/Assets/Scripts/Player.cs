@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     int maxBullets = 75;
     int curBullets;
+    public int BulletCount { get => curBullets; }
+    public int MaxBulletCount { get => maxBullets; }
 
     int maxHitPoints = 4;
     int curHitPoints;
@@ -69,7 +71,6 @@ public class Player : MonoBehaviour
                 bulletRigidBody.AddForce(bulletForce * lookDir);
                 Destroy(bullet, 2.0f);
             }
-            Debug.Log("Cur Bullets: " + curBullets.ToString());
         }
     }
 }
