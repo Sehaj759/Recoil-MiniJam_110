@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
             fire = false;
             rb.AddForce(bulletForce * (-lookDir));
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
+            Rigidbody2D bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
+            bulletRigidBody.AddForce(bulletForce * lookDir);
             Destroy(bullet, 2.0f);
         }
     }
