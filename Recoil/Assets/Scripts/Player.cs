@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rb;
 
-    Vector2 mousePos = Vector2.zero;
+    Vector2 lookDir = Vector2.zero;
 
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 lookDir = mousePos - rb.position;
+        Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        lookDir = mousePos - rb.position;
 
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
 
@@ -43,8 +43,8 @@ public class Player : MonoBehaviour
         if (fire)
         {
             fire = false;
-            rb.AddForce(bulletForce * (rb.position - mousePos));
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            rb.AddForce(bulletForce * (-lookDir));
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation);
             Destroy(bullet, 2.0f);
         }
     }
