@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class InGameUIUpdate : MonoBehaviour
 {
     [SerializeField] Player player;
 
-    [SerializeField] Text bulletCountText;
+    [SerializeField] TextMeshProUGUI bulletCountText;
 
     void Update()
     {
@@ -16,6 +16,6 @@ public class InGameUIUpdate : MonoBehaviour
 
     void SetBulletCountText()
     {
-        bulletCountText.text = player.BulletCount.ToString();
+        bulletCountText.SetText(player.BulletCount.ToString());
     }
 }
