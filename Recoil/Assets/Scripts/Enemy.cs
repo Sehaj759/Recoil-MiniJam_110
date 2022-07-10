@@ -41,4 +41,12 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.AddForce(movementSpeed * playerDir);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player.Hit();
+        }
+    }
 }

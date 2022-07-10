@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     int maxHitPoints = 4;
     int curHitPoints;
 
+    bool gameover = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();    
@@ -36,14 +38,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        lookDir = mousePos - rb.position;
-
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
-
-        if (Input.GetButtonDown("Fire1"))
+        if (!gameover)
         {
-            fire = true;
+            Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            lookDir = mousePos - rb.position;
+
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                fire = true;
+            }
+        }
+        else
+        {
+            rb.simulated = false;
         }
     }
 
@@ -76,5 +85,15 @@ public class Player : MonoBehaviour
     public void AddBullets(int count)
     {
         curBullets += count;
+    }
+
+    public void Hit()
+    {
+        curHitPoints--;
+        if(curHitPoints <= 0)
+        {
+            gameover = true;
+            Debug.Log("gameover");
+        }
     }
 }
