@@ -406,6 +406,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   firePoint: {fileID: 1292483290}
   bulletPrefab: {fileID: 106173521264021019, guid: 104506323167ccf47bdb5acc99ba3711, type: 3}
+  bulletForce: 400
 --- !u!50 &423127124
 Rigidbody2D:
   serializedVersion: 4

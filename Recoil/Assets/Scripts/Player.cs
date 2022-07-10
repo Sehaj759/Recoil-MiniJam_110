@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
     bool fire = false;
-    float bulletForce = 50.0f;
+    [SerializeField] float bulletForce = 500.0f;
     float maxVelocityMagnitude = 9.0f;
     float maxVelocityMagnitudeSq;
 
@@ -69,6 +69,9 @@ public class Player : MonoBehaviour
             if (curBullets > 0)
             {
                 curBullets--;
+                rb.velocity = Vector2.zero;
+
+                lookDir.Normalize();
                 rb.AddForce(bulletForce * (-lookDir));
                 if (rb.velocity.sqrMagnitude >= maxVelocityMagnitudeSq)
                 {
