@@ -17,10 +17,9 @@ public class Player : MonoBehaviour
     float maxVelocityMagnitude = 9.0f;
     float maxVelocityMagnitudeSq;
 
-    int maxBullets = 75;
+    int startingBullets = 75;
     int curBullets;
     public int BulletCount { get => curBullets; }
-    public int MaxBulletCount { get => maxBullets; }
 
     int maxHitPoints = 4;
     int curHitPoints;
@@ -29,7 +28,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();    
         
-        curBullets = maxBullets;
+        curBullets = startingBullets;
         curHitPoints = maxHitPoints;
 
         maxVelocityMagnitudeSq = maxVelocityMagnitude * maxVelocityMagnitude;
@@ -71,6 +70,15 @@ public class Player : MonoBehaviour
                 bulletRigidBody.AddForce(bulletForce * lookDir);
                 Destroy(bullet, 2.0f);
             }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("BulletPack"))
+        {
+            Destroy(collision.gameObject);
+            curBullets += 3;
         }
     }
 }
