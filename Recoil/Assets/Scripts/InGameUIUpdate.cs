@@ -16,6 +16,6 @@ public class InGameUIUpdate : MonoBehaviour
 
     void SetBulletCountText()
     {
-        bulletCountText.text = player.BulletCount.ToString() + "/" + player.MaxBulletCount.ToString();
+        bulletCountText.text = player.BulletCount.ToString();
     }
 }
