@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6921179587124822667}
+  bulletPackPrefab: {fileID: 724459881438771789, guid: e18121f06ec8ed548be032f43f12e54b, type: 3}

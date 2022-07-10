@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     float movementSpeed = 20.0f;
 
+    [SerializeField] GameObject bulletPackPrefab;
+
     void Start()
     {
         if(player == null)
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
 
     public void Hit()
     {
+        Instantiate(bulletPackPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
