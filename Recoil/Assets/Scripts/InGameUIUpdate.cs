@@ -10,6 +10,7 @@ public class InGameUIUpdate : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI bulletCountText;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] GameObject gameOver;
     [SerializeField] GameObject hitPointsParent;
     [SerializeField] GameObject hitPointPrefab;
 
@@ -28,11 +29,15 @@ public class InGameUIUpdate : MonoBehaviour
 
     void Update()
     {
-        SetBulletCountText();    
-        if(hitPointsRemaining > 0 && player.HitPointsRemaining < hitPointsRemaining)
+        SetBulletCountText();
+        if (hitPointsRemaining > 0 && player.HitPointsRemaining < hitPointsRemaining)
         {
             hitPoints[hitPointsRemaining - 1].SetActive(false);
             hitPointsRemaining--;
+        }
+        else if (hitPointsRemaining <= 0 && !gameOver.activeSelf)
+        {
+            gameOver.SetActive(true);
         }
     }
 
