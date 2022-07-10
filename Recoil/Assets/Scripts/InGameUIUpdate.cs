@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InGameUIUpdate : MonoBehaviour
 {
@@ -9,11 +10,17 @@ public class InGameUIUpdate : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI bulletCountText;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] GameObject hitPointsParent;
+    [SerializeField] GameObject hitPointPrefab;
+
+    GameObject[] hitPoints; 
 
     uint curSecondsPassed = 0;
 
     void Start()
     {
+        hitPoints = new GameObject[player.MaxHitPoints];
+        SetHitPointImages();
         StartCoroutine(Timer());    
     }
 
@@ -25,6 +32,23 @@ public class InGameUIUpdate : MonoBehaviour
     void SetBulletCountText()
     {
         bulletCountText.SetText(player.BulletCount.ToString());
+    }
+
+    void SetHitPointImages()
+    {
+        float posX = -115.0f;
+        for(int i = 0; i < hitPoints.Length; ++i)
+        {
+            GameObject hitPoint = Instantiate(hitPointPrefab);
+            hitPoint.transform.SetParent(hitPointsParent.transform);
+            RectTransform hitPointRect = hitPoint.GetComponent<RectTransform>();
+            if (hitPointRect)
+            {
+                hitPointRect.anchoredPosition = Vector2.left;
+                hitPointRect.localPosition = new Vector3(posX, 0, 0);
+                posX += (hitPointRect.sizeDelta.x - 45.0f);
+            }
+        }
     }
 
     IEnumerator Timer()

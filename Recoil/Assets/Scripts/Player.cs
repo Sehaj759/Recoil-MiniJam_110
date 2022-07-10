@@ -23,8 +23,10 @@ public class Player : MonoBehaviour
 
     int maxHitPoints = 4;
     int curHitPoints;
+    public int MaxHitPoints { get => maxHitPoints; }
+    public int HitPointsRemaining { get => curHitPoints; }
 
-    bool gameover = false;
+    public bool GameOver { get => curHitPoints <= 0; }
 
     void Start()
     {
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!gameover)
+        if (!GameOver)
         {
             Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lookDir = mousePos - rb.position;
@@ -95,7 +97,6 @@ public class Player : MonoBehaviour
         curHitPoints--;
         if(curHitPoints <= 0)
         {
-            gameover = true;
             Debug.Log("gameover");
         }
     }
