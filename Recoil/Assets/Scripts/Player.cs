@@ -73,12 +73,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void AddBullets(int count)
     {
-        if(collision.gameObject.CompareTag("BulletPack"))
-        {
-            Destroy(collision.gameObject);
-            curBullets += 3;
-        }
+        curBullets += count;
     }
 }

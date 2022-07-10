@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     float movementSpeed = 20.0f;
 
     [SerializeField] GameObject bulletPackPrefab;
+    float bulletPackDropChance = 0.55f;
 
     void Start()
     {
@@ -27,7 +28,10 @@ public class Enemy : MonoBehaviour
 
     public void Hit()
     {
-        Instantiate(bulletPackPrefab, transform.position, Quaternion.identity);
+        if (Random.Range(0.0f, 1.0f) <= bulletPackDropChance)
+        {
+            Instantiate(bulletPackPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

@@ -6,11 +6,10 @@ public class Bullet : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
             collision.gameObject.GetComponent<Enemy>().Hit();
-            Debug.Log("Hit Enemy");
         }
     }
 }
