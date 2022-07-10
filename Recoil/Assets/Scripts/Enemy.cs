@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     void FollowPlayer(float deltaTime)
     {
         Vector2 playerDir = (Vector2)(player.transform.position) - rb.position;
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerDir.y, playerDir.x) * Mathf.Rad2Deg);
         rb.velocity = Vector2.zero;
         rb.AddForce(movementSpeed * playerDir);
     }
