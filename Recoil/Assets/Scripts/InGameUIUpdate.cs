@@ -16,10 +16,12 @@ public class InGameUIUpdate : MonoBehaviour
     GameObject[] hitPoints; 
 
     uint curSecondsPassed = 0;
+    int hitPointsRemaining;
 
     void Start()
     {
         hitPoints = new GameObject[player.MaxHitPoints];
+        hitPointsRemaining = hitPoints.Length;
         SetHitPointImages();
         StartCoroutine(Timer());    
     }
@@ -27,6 +29,11 @@ public class InGameUIUpdate : MonoBehaviour
     void Update()
     {
         SetBulletCountText();    
+        if(hitPointsRemaining > 0 && player.HitPointsRemaining < hitPointsRemaining)
+        {
+            hitPoints[hitPointsRemaining - 1].SetActive(false);
+            hitPointsRemaining--;
+        }
     }
 
     void SetBulletCountText()
@@ -48,6 +55,7 @@ public class InGameUIUpdate : MonoBehaviour
                 hitPointRect.localPosition = new Vector3(posX, 0, 0);
                 posX += (hitPointRect.sizeDelta.x - 45.0f);
             }
+            hitPoints[i] = hitPoint;
         }
     }
 
