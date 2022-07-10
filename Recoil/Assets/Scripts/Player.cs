@@ -95,9 +95,12 @@ public class Player : MonoBehaviour
     public void Hit()
     {
         curHitPoints--;
-        if(curHitPoints <= 0)
-        {
-            Debug.Log("gameover");
-        }
+    }
+
+    public void Reset()
+    {
+        curHitPoints = maxHitPoints;
+        curBullets = startingBullets;
+        rb.simulated = true;
     }
 }

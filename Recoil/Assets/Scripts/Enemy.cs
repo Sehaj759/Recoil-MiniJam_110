@@ -21,6 +21,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (player.GameOver)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void FixedUpdate()
     {
         FollowPlayer(Time.fixedDeltaTime);

@@ -34,10 +34,12 @@ public class InGameUIUpdate : MonoBehaviour
         {
             hitPoints[hitPointsRemaining - 1].SetActive(false);
             hitPointsRemaining--;
-        }
-        else if (hitPointsRemaining <= 0 && !gameOver.activeSelf)
-        {
-            gameOver.SetActive(true);
+
+            if(hitPointsRemaining <= 0)
+            {
+                gameOver.SetActive(true);
+                StopCoroutine(Timer());
+            }
         }
     }
 
@@ -66,7 +68,7 @@ public class InGameUIUpdate : MonoBehaviour
 
     IEnumerator Timer()
     {
-        while (true)
+        while (!player.GameOver)
         {
             yield return new WaitForSeconds(1.0f);
             curSecondsPassed++;
@@ -93,5 +95,19 @@ public class InGameUIUpdate : MonoBehaviour
             minutes = "0" + _minutes.ToString();
         else
             minutes = _minutes.ToString();
+    }
+
+    public void Restart()
+    {
+        player.Reset();
+        hitPointsRemaining = hitPoints.Length;
+        curSecondsPassed = 0;
+        timerText.SetText("00:00");
+        foreach (GameObject hitPoint in hitPoints)
+        {
+            hitPoint.SetActive(true);
+        }
+        gameOver.SetActive(false);
+        StartCoroutine(Timer());
     }
 }
