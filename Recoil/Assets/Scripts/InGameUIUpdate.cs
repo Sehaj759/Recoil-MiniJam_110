@@ -11,7 +11,10 @@ public class InGameUIUpdate : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI bulletCountText;
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] GameObject gameOver;
+    [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject inGameTimerUI;
+    [SerializeField] TextMeshProUGUI finalTimerText;
+
     [SerializeField] GameObject hitPointsParent;
     [SerializeField] GameObject hitPointPrefab;
 
@@ -38,7 +41,13 @@ public class InGameUIUpdate : MonoBehaviour
 
             if(hitPointsRemaining <= 0)
             {
-                gameOver.SetActive(true);
+                string minutes;
+                string seconds;
+                CurSecondsToTimeText(out minutes, out seconds);
+
+                finalTimerText.SetText(minutes + ":" + seconds);
+                inGameTimerUI.SetActive(false);
+                gameOverUI.SetActive(true);
                 StopCoroutine(Timer());
             }
         }
@@ -108,7 +117,8 @@ public class InGameUIUpdate : MonoBehaviour
         {
             hitPoint.SetActive(true);
         }
-        gameOver.SetActive(false);
+        inGameTimerUI.SetActive(true);
+        gameOverUI.SetActive(false);
         StartCoroutine(Timer());
         enemySpawnner.Restart();
     }
