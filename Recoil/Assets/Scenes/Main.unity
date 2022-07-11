@@ -3077,6 +3077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 423127123}
+  enemySpawnner: {fileID: 2137369448}
   bulletCountText: {fileID: 1455033908}
   timerText: {fileID: 1830954391}
   gameOver: {fileID: 410625755}
@@ -3441,6 +3442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf522dee887458408be63c443e89943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 423127123}
   enemyPrefab: {fileID: 69241086101969406, guid: 7d696a97ea8a8a94bae7a1251ceb6c61, type: 3}
   top: {fileID: 1698600143}
   bottom: {fileID: 380499418}

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnner : MonoBehaviour
 {
+    [SerializeField] Player player;
+
     [SerializeField] GameObject enemyPrefab;
 
     // play area bounds
@@ -14,7 +16,6 @@ public class EnemySpawnner : MonoBehaviour
     [SerializeField] Transform right;
 
     float spawnTime = 3.0f;
-    bool spawnEnemies = true;
 
     void Start()
     {
@@ -23,12 +24,18 @@ public class EnemySpawnner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        while (spawnEnemies)
+        while (!player.GameOver)
         {
             float x = Random.Range(left.position.x, right.position.x);
             float y = Random.Range(bottom.position.y, top.position.y);
             Instantiate(enemyPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
             yield return new WaitForSeconds(spawnTime);
         }
+    }
+
+    public void Restart()
+    {
+        StopCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemy());
     }
 }

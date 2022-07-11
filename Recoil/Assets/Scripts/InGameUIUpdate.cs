@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InGameUIUpdate : MonoBehaviour
 {
     [SerializeField] Player player;
+    [SerializeField] EnemySpawnner enemySpawnner;
 
     [SerializeField] TextMeshProUGUI bulletCountText;
     [SerializeField] TextMeshProUGUI timerText;
@@ -99,7 +100,7 @@ public class InGameUIUpdate : MonoBehaviour
 
     public void Restart()
     {
-        player.Reset();
+        player.Restart();
         hitPointsRemaining = hitPoints.Length;
         curSecondsPassed = 0;
         timerText.SetText("00:00");
@@ -109,5 +110,6 @@ public class InGameUIUpdate : MonoBehaviour
         }
         gameOver.SetActive(false);
         StartCoroutine(Timer());
+        enemySpawnner.Restart();
     }
 }

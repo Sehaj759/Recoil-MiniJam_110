@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         curHitPoints--;
     }
 
-    public void Reset()
+    public void Restart()
     {
         transform.position = Vector3.zero;
         curHitPoints = maxHitPoints;
