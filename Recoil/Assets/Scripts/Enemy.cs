@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     // one player refernce shared by all Enemies
     static Player player = null;
-    static float movementSpeed = 20.0f;
+    static float movementSpeed = 350.0f;
     static float hitRecoilForce = 200.0f;
 
     [SerializeField] Rigidbody2D rb;
@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
     void FollowPlayer(float deltaTime)
     {
         playerDir = (Vector2)(player.transform.position) - rb.position;
+        playerDir.Normalize();
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerDir.y, playerDir.x) * Mathf.Rad2Deg);
         rb.velocity = Vector2.zero;
         rb.AddForce(movementSpeed * playerDir);
@@ -58,10 +59,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerDir.Normalize();
             player.Hit(playerDir, hitRecoilForce);
             rb.velocity = Vector2.zero;
-            rb.AddForce(hitRecoilForce * -playerDir);
+            rb.AddForce(hitRecoilForce * (-playerDir));
         }
     }
 }

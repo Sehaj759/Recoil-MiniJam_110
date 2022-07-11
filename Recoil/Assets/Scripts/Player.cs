@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
     bool fire = false;
-    [SerializeField] float bulletForce = 500.0f;
+    float bulletForce = 450.0f;
     float maxVelocityMagnitude = 9.0f;
     float maxVelocityMagnitudeSq;
 
