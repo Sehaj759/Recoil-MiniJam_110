@@ -15,6 +15,7 @@ public class EnemySpawnner : MonoBehaviour
     [SerializeField] Transform left;
     [SerializeField] Transform right;
 
+    float padding = 5.0f;
     float spawnTime = 3.0f;
 
     void Start()
@@ -26,8 +27,8 @@ public class EnemySpawnner : MonoBehaviour
     {
         while (!player.GameOver)
         {
-            float x = Random.Range(left.position.x, right.position.x);
-            float y = Random.Range(bottom.position.y, top.position.y);
+            float x = Random.Range(left.position.x + padding, right.position.x - padding);
+            float y = Random.Range(bottom.position.y + padding, top.position.y - padding);
             Instantiate(enemyPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
             yield return new WaitForSeconds(spawnTime);
         }
