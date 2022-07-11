@@ -12,17 +12,23 @@ public class InGameUIUpdate : MonoBehaviour
     [SerializeField] TextMeshProUGUI bulletCountText;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] GameObject gameOverUI;
-    [SerializeField] GameObject inGameTimerUI;
+    [SerializeField] GameObject disableOnGameOverUI;
     [SerializeField] TextMeshProUGUI finalTimerText;
+    [SerializeField] Image pauseButtonImage;
+
 
     [SerializeField] GameObject hitPointsParent;
     [SerializeField] GameObject hitPointPrefab;
+
+    [SerializeField] Sprite pauseImage;
+    [SerializeField] Sprite resumeImage;
 
     GameObject[] hitPoints; 
 
     uint curSecondsPassed = 0;
     int hitPointsRemaining;
 
+    bool isPaused = false;
     void Start()
     {
         hitPoints = new GameObject[player.MaxHitPoints];
@@ -46,7 +52,7 @@ public class InGameUIUpdate : MonoBehaviour
                 CurSecondsToTimeText(out minutes, out seconds);
 
                 finalTimerText.SetText(minutes + ":" + seconds);
-                inGameTimerUI.SetActive(false);
+                disableOnGameOverUI.SetActive(false);
                 gameOverUI.SetActive(true);
                 StopCoroutine(Timer());
             }
@@ -117,9 +123,28 @@ public class InGameUIUpdate : MonoBehaviour
         {
             hitPoint.SetActive(true);
         }
-        inGameTimerUI.SetActive(true);
+        disableOnGameOverUI.SetActive(true);
         gameOverUI.SetActive(false);
         StartCoroutine(Timer());
         enemySpawnner.Restart();
+    }
+
+    public void Pause()
+    {
+        if (!player.GameOver)
+        {
+            isPaused = !isPaused;
+
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+                pauseButtonImage.sprite = resumeImage;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseButtonImage.sprite = pauseImage;
+            }
+        }
     }
 }
