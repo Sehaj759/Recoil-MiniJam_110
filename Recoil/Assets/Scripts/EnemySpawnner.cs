@@ -16,11 +16,16 @@ public class EnemySpawnner : MonoBehaviour
     [SerializeField] Transform right;
 
     float padding = 5.0f;
-    float spawnTime = 3.0f;
+    float startingSpawnTime = 3.0f;
+    float spawnTime;
+    float spawnTimeDecrementDelta = 0.3f;
+    float minSpawnTime = 1.0f;
 
     void Start()
     {
+        spawnTime = startingSpawnTime;
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(DecreaseSpawnTime());
     }
 
     IEnumerator SpawnEnemy()
@@ -34,9 +39,22 @@ public class EnemySpawnner : MonoBehaviour
         }
     }
 
+    IEnumerator DecreaseSpawnTime()
+    {
+        while (spawnTime >= minSpawnTime)
+        {
+            yield return new WaitForSeconds(5.0f);
+            spawnTime -= spawnTimeDecrementDelta;
+        }
+    }
+
     public void Restart()
     {
+        spawnTime = startingSpawnTime;
         StopCoroutine(SpawnEnemy());
         StartCoroutine(SpawnEnemy());
+
+        StopCoroutine(DecreaseSpawnTime());
+        StartCoroutine(DecreaseSpawnTime());
     }
 }
