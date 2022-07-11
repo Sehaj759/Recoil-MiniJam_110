@@ -751,7 +751,6 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   firePoint: {fileID: 1292483290}
   bulletPrefab: {fileID: 106173521264021019, guid: 104506323167ccf47bdb5acc99ba3711, type: 3}
-  bulletForce: 400
   fireSoundEffect: {fileID: 8300000, guid: 9391a490a6a4de746a01e6abf202c24c, type: 3}
 --- !u!50 &423127124
 Rigidbody2D:
@@ -3282,12 +3281,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
