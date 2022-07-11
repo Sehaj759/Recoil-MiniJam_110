@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player.Hit(playerDir, hitRecoilForce);
+            player.Hit(playerDir, movementSpeed + 75.0f);
             rb.velocity = Vector2.zero;
             rb.AddForce(hitRecoilForce * (-playerDir));
         }
