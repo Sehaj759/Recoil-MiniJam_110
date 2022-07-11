@@ -28,10 +28,15 @@ public class Player : MonoBehaviour
 
     public bool GameOver { get => curHitPoints <= 0; }
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip fireSoundEffect;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();    
-        
+        rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+
         curBullets = startingBullets;
         curHitPoints = maxHitPoints;
 
@@ -71,6 +76,7 @@ public class Player : MonoBehaviour
             if (curBullets > 0)
             {
                 curBullets--;
+                audioSource.PlayOneShot(fireSoundEffect, 1.0f);
                 rb.velocity = Vector2.zero;
 
                 lookDir.Normalize();
