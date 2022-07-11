@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     float maxVelocityMagnitude = 9.0f;
     float maxVelocityMagnitudeSq;
 
-    int startingBullets = 75;
+    int startingBullets = 55;
     int curBullets;
     public int BulletCount { get => curBullets; }
 
