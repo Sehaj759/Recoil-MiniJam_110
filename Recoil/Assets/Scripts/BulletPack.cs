@@ -8,12 +8,23 @@ public class BulletPack : MonoBehaviour
     static Player player = null;
 
     int bulletCount = 3;
+    SpriteRenderer spriteRenderer;
 
     void Start()
     {
         if (player == null)
         {
             player = GameObject.Find("Player").GetComponent<Player>();
+        }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
+        if (spriteRenderer)
+        {
+            spriteRenderer.color = Color.HSVToRGB(Mathf.PingPong(Time.time, 1), 1, 1);
         }
     }
 
