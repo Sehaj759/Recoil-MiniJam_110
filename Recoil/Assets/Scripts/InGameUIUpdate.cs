@@ -17,7 +17,7 @@ public class InGameUIUpdate : MonoBehaviour
     [SerializeField] GameObject resumeTimerTexts;
     [SerializeField] TextMeshProUGUI resumeTimer;
     [SerializeField] Image pauseButtonImage;
-
+    [SerializeField] GameObject pausedText;
 
     [SerializeField] GameObject hitPointsParent;
     [SerializeField] GameObject hitPointPrefab;
@@ -141,11 +141,13 @@ public class InGameUIUpdate : MonoBehaviour
             if (isPaused)
             {
                 Time.timeScale = 0;
+                pausedText.SetActive(true);
                 pauseButtonImage.sprite = resumeImage;
             }
             else
             {
                 gameResumed = false;
+                pausedText.SetActive(false);
                 resumeTimerTexts.SetActive(true);
                 StartCoroutine(ResumeTimer());
                 pauseButtonImage.sprite = pauseImage;
