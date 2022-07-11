@@ -98,9 +98,11 @@ public class Player : MonoBehaviour
         curBullets += count;
     }
 
-    public void Hit()
+    public void Hit(Vector2 hitRecoilDir, float hitRecoilForce)
     {
         curHitPoints--;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(hitRecoilForce * hitRecoilDir);
     }
 
     public void Restart()
