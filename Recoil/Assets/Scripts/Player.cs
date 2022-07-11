@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        transform.position = Vector3.zero;
         curHitPoints = maxHitPoints;
         curBullets = startingBullets;
         rb.simulated = true;
