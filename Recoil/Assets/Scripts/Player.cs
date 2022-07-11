@@ -111,5 +111,7 @@ public class Player : MonoBehaviour
         curHitPoints = maxHitPoints;
         curBullets = startingBullets;
         rb.simulated = true;
+        audioSource.Stop();
+        audioSource.Play();
     }
 }
