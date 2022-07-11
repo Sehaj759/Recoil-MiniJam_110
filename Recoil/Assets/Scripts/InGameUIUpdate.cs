@@ -14,6 +14,8 @@ public class InGameUIUpdate : MonoBehaviour
     [SerializeField] GameObject gameOverUI;
     [SerializeField] GameObject disableOnGameOverUI;
     [SerializeField] TextMeshProUGUI finalTimerText;
+    [SerializeField] GameObject resumeTimerTexts;
+    [SerializeField] TextMeshProUGUI resumeTimer;
     [SerializeField] Image pauseButtonImage;
 
 
@@ -29,6 +31,7 @@ public class InGameUIUpdate : MonoBehaviour
     int hitPointsRemaining;
 
     bool isPaused = false;
+    bool gameResumed = true;
     void Start()
     {
         hitPoints = new GameObject[player.MaxHitPoints];
@@ -131,7 +134,7 @@ public class InGameUIUpdate : MonoBehaviour
 
     public void Pause()
     {
-        if (!player.GameOver)
+        if (!player.GameOver && gameResumed)
         {
             isPaused = !isPaused;
 
@@ -142,9 +145,25 @@ public class InGameUIUpdate : MonoBehaviour
             }
             else
             {
-                Time.timeScale = 1;
+                gameResumed = false;
+                resumeTimerTexts.SetActive(true);
+                StartCoroutine(ResumeTimer());
                 pauseButtonImage.sprite = pauseImage;
             }
         }
+    }
+
+    IEnumerator ResumeTimer()
+    {
+        int curSeconds = 3;
+        while(curSeconds > 0)
+        {
+            resumeTimer.SetText(curSeconds.ToString());
+            yield return new WaitForSecondsRealtime(1.0f);
+            curSeconds--;
+        }
+        resumeTimerTexts.SetActive(false);
+        Time.timeScale = 1;
+        gameResumed = true;
     }
 }
